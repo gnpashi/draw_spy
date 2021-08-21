@@ -1,0 +1,6 @@
+<%= simple_form_for @player do |f| %>
+  <%= f.input :name %>
+  <%= f.input :kind, collection: Player.kinds.keys %>
+  <%= f.association :game %>
+  <%= f.button :submit %>
+<% end %>

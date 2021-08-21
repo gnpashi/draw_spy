@@ -1,0 +1,6 @@
+<div id=<%= "#{dom_id(game)}_players" %>>
+  <ul>
+    <%= session[:player_id] %>
+    <%= render partial: "players/player", collection: game.players, as: :player %>
+  </ul>
+</div>

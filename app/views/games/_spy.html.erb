@@ -1,0 +1,12 @@
+<%= turbo_frame_tag player do %>
+  <% if player.game.started? %>
+    <div class='spy-or-word' data-spy-target='spyOrWord'>
+      <% if player.spy? %>
+        spyyy
+      <% else %>
+        <%= player.game.word %>
+      <% end %>
+    </div>
+    <button type='button' data-action='spy#toggle'>show/hide</button>
+  <% end %>
+<% end %>

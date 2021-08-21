@@ -1,0 +1,6 @@
+<% if !player.new_record? && session[:creator] && game.pending? %>
+  <%= simple_form_for game do |f| %>
+    <%= f.input :state, collection: Game.states.keys, selected: :started, wrapper_html:{style: "display:none;"} %>
+    <%= f.button :submit, 'start' %>
+  <% end %>
+<% end %>

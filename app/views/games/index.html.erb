@@ -1,0 +1,11 @@
+<%= form_with(url: '/', method: 'get', local: true) do %>
+  <label for="id">join a game</label>
+  <%= text_field_tag :id  %>
+  <%= submit_tag "Search" %>
+<% end %>
+<br>
+<%= simple_form_for @game do |f| %>
+  <%= f.input :state, collection: Game.states.keys, selected: :pending, wrapper_html:{style: "display:none;"} %>
+  <%= f.button :submit, 'new game' %>
+<% end %>
+<%= link_to 'index', all_games_games_path %>

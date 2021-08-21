@@ -1,0 +1,3 @@
+<% game.players.each do |player|%>
+  <%= turbo_frame_tag player, src: player_path(player, frame: true) %>
+<% end %>
