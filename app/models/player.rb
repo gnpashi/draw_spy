@@ -7,8 +7,6 @@ class Player < ApplicationRecord
   enum kind: [:regular, :spy], _default: :regular
 
   after_create_commit do
-    puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!".on_red
-    puts game.uuid
     if game.pending?
       broadcast_replace_to [game, :players], target: "#{dom_id(game)}_players", partial: "players/game_players_frame", locals: {game: game}
     end
