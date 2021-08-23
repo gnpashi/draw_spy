@@ -1,3 +1,10 @@
 <li>
+  <% if session[:creator] && player.id != player.game.creator && player.game.pending? %>
+    <%= link_to player, method: :delete, class:'remove-player' do  %>
+      <span class="material-icons-outlined">
+        delete
+      </span>
+    <% end %>
+  <% end %>
   <%= player.name%>
 </li>

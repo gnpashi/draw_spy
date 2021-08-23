@@ -1,6 +1,8 @@
-<div id=<%= "#{dom_id(game)}_players" %>>
-  <ul>
-    <%= session[:player_id] %>
-    <%= render partial: "players/player", collection: game.players, as: :player %>
-  </ul>
-</div>
+<%# player = session[:player_id].present? ? Player.find(session[:player_id]) : Player.new %>
+<%= turbo_frame_tag "#{dom_id(game)}_players" do %>
+  <div id=<%# "#{dom_id(game)}_players" %>>
+    <ul>
+      <%= render partial: "players/player", collection: game.players, as: :player %>
+    </ul>
+  </div>
+<% end %>

@@ -1,31 +1,22 @@
+<div class="logo-wrapper">
+  <%= link_to root_path do %>
+    <%= image_tag 'logo.svg', class: 'logo show' %>
+  <% end%>
+</div>
 <%= turbo_stream_from @game, :players %>
 <h1><%= @game.uuid %></h1>
-<div id=<%= "#{dom_id(@game)}_players_wrapper" %>>
-  <%= render "players/game_players", game: @game %>
-  <% if @player.new_record? %>
-    <%= simple_form_for @player do |f| %>
-      <%= f.input :name %>
-      <%= f.association :game, as: :hidden, input_html: {value: @game.id} %>
-      <%= f.button :submit %>
-    <% end %>
-  <% end %>
-</div>
+<% unless session[:player_id].present? %>
+  <%= render 'players/new', game: @game, player: Player.new %>
+<% end %>
 <div id=<%= "#{dom_id(@game)}_start" %>>
   <%= render "games/start", game: @game, player: @player %>
 </div>
-<div data-controller='spy' id=<%= "#{dom_id(@game)}_player_kind" %>>
-  <% if @game.started? %>
-    <div class='spy-or-word' data-spy-target='spyOrWord'>
-      <% if @player.spy? %>
-        spyyy
-      <% else %>
-        <%= @player.game.word %>
-      <% end %>
-    </div>
-    <button type='button' data-action='spy#toggle'>show/hide</button>
-  <% end %>
-</div>
-<%= turbo_frame_tag @game %>
-<%= link_to 'index', games_path %>
-<div id="spy-or-word">
-</div>
+<%= turbo_frame_tag "player_kind", data: {controller: 'spy'} do %>
+  <%= render "players/spy", game: @game, player: @player %>
+<% end %>
+<%= turbo_frame_tag "#{dom_id(@game)}_players" do %>
+  <div id=<%=  %>>
+    <%= render "players/game_players", game: @game %>
+  </div>
+<% end %>
+<%# link_to 'index', games_path %>

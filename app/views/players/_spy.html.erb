@@ -1,12 +1,18 @@
-<%= turbo_frame_tag player do %>
-  <% if player.game.started? %>
-    <div class='spy-or-word' data-spy-target='spyOrWord'>
-      <% if player.spy? %>
-        spyyy
-      <% else %>
-        <%= player.game.word %>
-      <% end %>
+<%# <% player = Player.find(session[:player_id]) %>
+<% player = @player %>
+<%= turbo_frame_tag "player_kind", data: {controller: "spy"} do %>
+  <% if game.started? %>
+    <div class='spy-or-word-wrapper'>
+      <div class='spy-or-word' data-spy-target='spyOrWord'>
+        <span>
+          <% if player.spy? %>
+            <%= t("spy") %>
+          <% else %>
+            <%= game.word %>
+          <% end %>
+        </span>
+      </div>
+      <button class='btn hide-btn' type='button' data-action='spy#toggle'>show/hide</button>
     </div>
-    <button type='button' data-action='spy#toggle'>show/hide</button>
   <% end %>
 <% end %>

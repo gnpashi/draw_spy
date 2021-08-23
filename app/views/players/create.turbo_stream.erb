@@ -1,2 +1,3 @@
-<%= turbo_stream.replace("#{dom_id(@player.game)}_players_wrapper", partial: "players/game_players", locals: { game: @player.game }) %>
+<%= turbo_stream.replace("#{dom_id(@player.game)}_players", partial: "players/game_players", locals: { game: @player.game }) %>
 <%= turbo_stream.replace("#{dom_id(@player.game)}_start", partial: "games/start", locals: { game: @player.game , player: @player}) %>
+<%= turbo_stream.remove("new_player_frame") %>

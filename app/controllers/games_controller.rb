@@ -8,21 +8,29 @@ class GamesController < ApplicationController
     session[:player_id] = nil
     session[:creator] = nil
     if params[:id].present?
-      redirect_to "/#{params[:id].downcase}"
+      if Game.find_by(uuid: params[:id].downcase).present?
+        redirect_to "/#{params[:id].downcase}"
+      else
+        redirect_to root_path(error: params[:id])
+      end
       
     end
   end
 
   # GET /games/1 or /games/1.json
   def show
-
     if session[:player_id].present?
       @player = Player.find(session[:player_id])
     else
       @player = Player.new
+      params[:new_player] = true
     end
     if request.headers["turbo-frame"]
-      render partial: 'players/spy', locals: { player: @player }
+      if params[:new_player].present?
+        render partial: 'players/game_players', locals: { game: @game, new_player: true }
+      elsif params[:player_kind].present?
+        render partial: 'players/spy', locals: { game: @game, player: @player }
+      end
     else
       render 'show'
     end
@@ -60,6 +68,7 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1 or /games/1.json
   def update
     @game.players.find(@game.players.pluck(:id).sample).update(kind: :spy)
+    @player = Player.find(params[:player_id])
     respond_to do |format|
       if @game.update(game_params)
         format.turbo_stream
@@ -107,6 +116,6 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit( :state, :uuid)
+      params.require(:game).permit( :state, :uuid, :creator)
     end
 end

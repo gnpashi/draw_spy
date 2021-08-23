@@ -30,4 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  no_game: "Game with code %{game_uuid} does not exist"
+  join: "Join game"
+  placeholder: "Game code"
+  name: "Name"
+  enter: "Enter"
+  spy: "spy"

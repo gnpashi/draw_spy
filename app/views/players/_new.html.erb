@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "new_player_frame" do %>
+  <% if player.new_record? %>
+    <%= simple_form_for player do |f| %>
+      <%= f.input :name, label: t('name') %>
+      <%= f.association :game, as: :hidden, input_html: {value: game.id} %>
+      <%= f.button :submit, t('enter') %>
+    <% end %>
+  <% end %>
+<% end %>

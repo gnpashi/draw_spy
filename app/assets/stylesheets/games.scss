@@ -1,9 +1,142 @@
 // Place all the styles related to the games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
-.spy-or-word {
-    opacity: 0;
-    &.show {
-        opacity: 1;
+$width: 80%;
+.logo-wrapper {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    margin-bottom: 10vh;
+    a {
+        display: inline-block;
+        display: grid;
+        place-items: center;
+        width: 100%;
+    }
+    .logo {
+        &.index {
+            width: $width;
+        }
+        &.show {
+            width: 30%;
+        }
+    }
+}
+
+form {
+    display: grid;
+    place-items: center;
+    >* {
+        width: 100%;
+        display: grid;
+        place-items: center;
+    }
+    label {
+        font-size: 2rem;
+        padding: 2rem;
+        abbr {
+            display: none;
+        }
+    }
+    input[type=text] {
+        font-size: 2rem;
+        width: $width;
+        border: none;
+        border-bottom: 2px solid rgb(104, 104, 104);
+        margin-bottom: 1em;
+        outline: none;
+        padding: 0.2em;
+        transition: background 200ms, box-shadow 200ms;
+        &.search-tag {
+            text-transform: uppercase;
+        }
+        &:focus {
+            box-shadow: 0px 4px 0 0 rgb(104, 104, 104);
+            background: hsl(0, 0, 93%);
+            // border-bottom: 4px solid #094b88;
+        }
+    }
+}
+
+.new_game {
+    display: grid;
+    place-items: center;
+    .btn {
+        border: none;
+    }
+}
+
+.btn {
+    font-size: 1.5rem;
+    width: $width;
+    background: none;
+    border: 2px solid black;
+    padding: 0.3em 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.error {
+    color: #840000;
+    background: #ff00002b;
+    width: $width;
+    font-size: 1.3rem;
+    padding: 1rem;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    position: relative;
+    line-height: 1.2;
+    word-break: break-word;
+    .close-error {
+        color: #840000;
+        text-decoration: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+h1 {
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    flex-wrap: wrap;
+    li {
+        width: 50%;
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 1em;
+        position: relative;
+        display: flex;
+        align-items: center;
+        .remove-player {
+            color: #840000;
+            text-decoration: none;
+        }
+    }
+}
+
+.spy-or-word-wrapper {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    .spy-or-word {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+        opacity: 0;
+        min-height: 20vh;
+        display: grid;
+        place-items: center;
+        span {}
+        &.show {
+            opacity: 1;
+        }
     }
 }

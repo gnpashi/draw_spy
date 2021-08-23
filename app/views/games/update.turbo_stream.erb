@@ -1,3 +1,4 @@
 <%= turbo_stream.remove("edit_#{dom_id(@game)}") %>
-<%# turbo_stream.replace("#{dom_id(@game)}_player_kind" , partial: "games/playing", locals: { game: @game, word: @game.word }) %>
+<%= turbo_stream.replace("player_kind" , partial: "players/spy", locals: { game: @game, player: @player }) %>
+<%= turbo_stream.replace("#{dom_id(@game)}_players" , partial: "players/game_players", locals: { game: @game }) %>
 <%# turbo_stream.replace("#{dom_id(@game)}_player_kind" , partial: "games/playing", locals: { game: @game, word: @game.word }) %>

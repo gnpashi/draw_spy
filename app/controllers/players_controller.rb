@@ -10,7 +10,11 @@ class PlayersController < ApplicationController
 
   # GET /players/1 or /players/1.json
   def show
+    puts "show".black.on_yellow
     if request.headers["turbo-frame"]
+      if params[:destroy].present?
+        render partial: 'game_players', locals: { game: Player.find(session[:player_id]).game }
+      end
       render partial: 'spy', locals: { player: Player.find(session[:player_id]) }
     else
       render 'show'
@@ -33,6 +37,10 @@ class PlayersController < ApplicationController
     respond_to do |format|
       if @player.save
         session[:player_id] = @player.id
+        session[:new_player] = true
+        if session[:creator]
+          @player.game.update(creator: @player.id)
+        end
         format.turbo_stream
         format.html { redirect_to @player.game, notice: "Player was successfully created." }
         format.json { render :show, status: :created, location: @player }
@@ -60,6 +68,7 @@ class PlayersController < ApplicationController
   def destroy
     @player.destroy
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
       format.json { head :no_content }
     end

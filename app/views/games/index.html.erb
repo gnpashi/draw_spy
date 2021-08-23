@@ -1,11 +1,21 @@
-<%= form_with(url: '/', method: 'get', local: true) do %>
-  <label for="id">join a game</label>
-  <%= text_field_tag :id  %>
-  <%= submit_tag "Search" %>
+<div class="logo-wrapper">
+  <%= image_tag 'logo.svg', class: 'logo index' %>
+</div>
+<% if params[:error].present? %>
+  <div class="error">
+    <%= t('no_game', game_uuid: params[:error].upcase) %>
+    <%= link_to root_path, class: 'close-error' do %>
+      <span class="material-icons-outlined">
+        close
+      </span>
+    <% end %>
+  </div>
 <% end %>
-<br>
+<%= form_with(url: '/', method: 'get', local: true, class: 'search-form') do %>
+  <%= text_field_tag :id, '',class: 'search-tag', autofocus: true, placeholder:  t('placeholder') %>
+  <%= submit_tag t('join'), class: "btn" %>
+<% end %>
 <%= simple_form_for @game do |f| %>
   <%= f.input :state, collection: Game.states.keys, selected: :pending, wrapper_html:{style: "display:none;"} %>
-  <%= f.button :submit, 'new game' %>
+  <%= f.button :submit, 'new game', class: 'btn' %>
 <% end %>
-<%= link_to 'index', all_games_games_path %>
